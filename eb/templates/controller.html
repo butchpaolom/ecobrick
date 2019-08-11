@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div style="height: 85vh; background-image: url(static/controller.jpg); background-size: cover; display: flex; flex-direction: column; padding: 0px 50px 0px 50px" class=" d-flex justify-content-center align-items-center">
+        <!-- <button type="button" class="btn btn-primary btn-lg">Start the Machine</button>
+          <button type="button" class="btn btn-warning  btn-secondary btn-lg">Stop the Machine</button> -->
+
+        <input type="checkbox" data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger">
+
+        <br>
+
+        <button class="btn btn-warning" id="elli">Maintenance</button>
+        <br>
+        <div id="Maintenance" hidden="true">
+            <button class="btn btn-secondary" id="elli1">Turn on Shredder</button>
+            <button class="btn btn-secondary " id="elli2">Turn on Compressor</button>
+            <button class="btn btn-info" id="elli3">Go Back</button>
+        </div>
+</body>
+
+<script>
+    $("#elli").click(function() {
+        $("#elli").hide();
+        $("#Maintenance").removeAttr('hidden');
+    });
+
+    $("#elli1").click(function() {
+        console.log("The shredder is turned on.");
+        $("#elli1").html("<em>Shredder is ON</em>")
+        $("#elli1").css("background-color", "black");
+    });
+
+    $("#elli2").click(function() {
+        console.log("The compressor is turned on.");
+        $("#elli2").html("<em>Compressor is ON</em>")
+        $("#elli2").css("background-color", "black");
+    });
+</script>
+
+{% endblock content %}
