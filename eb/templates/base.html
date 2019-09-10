@@ -1,113 +1,85 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="static/include/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.css">
-    <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="include/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.css">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- Theme CSS -->
-    <link href="static/css/freelancer.min.css" rel="stylesheet">
-    <title>M-DEM</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'include/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.css' %}">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <link href="{% static 'css/freelancer.min.css' %}" rel="stylesheet">
+    <title>Ecobrick Maker</title>
 
 </head>
 
 <body id="page-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">ECOBRICK</a>
+        <a class="navbar-brand" href="{% url 'index' %}">ECOBRICK</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link" href="{% url 'index' %}#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#manual">M-DEM Manual</a>
+                    <a class="nav-link" href="{% url 'index' %}#manual">M-DEM Manual</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Settings</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                What's Up
-              </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'controller' %}">Controller</a>
+                    <a class="nav-link" href="{% url 'controller' %}">Settings</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> -->
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button"> <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalLoginForm">
-                Sign In</a></button>
-            </form>
         </div>
 
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
-                            <i class="fas fa-envelope prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="defaultForm-email">Administrator</label>
-                            <input type="email" id="defaultForm-email" class="form-control validate">
-                        </div>
-
-                        <div class="md-form mb-4">
-                            <i class="fas fa-lock prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
-                            <input type="password" id="defaultForm-pass" class="form-control validate">
-                        </div>
-
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-default">Login</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </nav>
     {% block content %}{% endblock content %}
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+
+                <!-- Footer Location -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Location</h4>
+                    <p class="lead mb-0">Pureza
+                        <br>Santa Mesa</p>
+                </div>
+
+                <!-- Footer Social Icons -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Around the Web</h4>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                        <i class="fab fa-fw fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                        <i class="fab fa-fw fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                        <i class="fab fa-fw fa-linkedin-in"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                        <i class="fab fa-fw fa-dribbble"></i>
+                    </a>
+                </div>
+
+                <!-- Footer About Text -->
+                <div class="col-lg-4">
+                    <h4 class="text-uppercase mb-4">About M-DEM</h4>
+                    <p class="lead mb-0">Dreamteam7
+                        <!-- <a href="http://startbootstrap.com">Start Bootstrap</a>. -->
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- Bootstrap core JavaScript -->
-<script src="static/vendor/jquery/jquery.min.js"></script>
-<script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Plugin JavaScript -->
-<script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Contact Form JavaScript -->
-<script src="static/js/jqBootstrapValidation.js"></script>
-<script src="static/js/contact_me.js"></script>
-
-<!-- Custom scripts for this template -->
-<script src="static/js/freelancer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
-
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </html>

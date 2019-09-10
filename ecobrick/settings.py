@@ -25,7 +25,7 @@ SECRET_KEY = 'lcic$hm53t_apjx%m76)r*vt^l_pp)(fgr%%7iv#4%p-0u#0v!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
