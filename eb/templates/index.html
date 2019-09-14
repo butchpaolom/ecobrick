@@ -23,12 +23,12 @@
         </div>
       </div>
 
-    <div style="height: 90vh; background-image: url(static/bg.jpeg); background-size: cover;" class="d-flex justify-content-center align-items-center">
-        <button class="btn btn-info btn-lg animated bounce infinite" data-toggle="modal" data-target="#controller">Let's Start Ecobricking</button>
+    <div style="height: 90vh; background-image: url(static/bg.jpeg); background-size: cover;" class="d-flex justify-content-center align-items-center animated bounceIn">
+        <button class="btn btn-primary btn-lg animated bounce infinite" data-toggle="modal" data-target="#controller">Let's Start Ecobricking</button>
     </div>
 
     <!-- About Section -->
-    <section class="page-section bg-primary text-white mb-0" id="about">
+    <section class="page-section bg-info text-white mb-0 animated bounceIn delay-250ms" id="about">
         <div class="container">
 
             <!-- About Section Heading -->
@@ -65,7 +65,7 @@
     </section>
 
     <!-- Manual User Guide -->
-    <section class="page-section bg-success text-white mb-0" id="manual">
+    <section class="page-section bg-success text-white mb-0 animated bounceIn delay-500ms" id="manual">
         <div class="container">
 
             <!-- About Section Heading -->
@@ -100,7 +100,6 @@
 
         </div>
     </section>
-    <!-- Footer -->
     <script>
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')

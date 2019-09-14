@@ -1,23 +1,139 @@
+
 {% extends "base.html" %}
 {% block content %}
+
+{% csrf_token %}
 <div class="container-fluid m-0 p-0">
     <div style="height: 85vh; background-image: url(static/controller.jpg); background-size: cover; display: flex; flex-direction: column; padding: 0px 50px 0px 50px" class=" d-flex justify-content-center align-items-center">
-        <div class="container text-center">
-            <h1 id="text-on-off">Ecobrick machine is turned off!</h1>
-        <button type="button" class="btn btn-primary" id="on-off">On</button>
+        <div class="container">
+            <div class="col-12 col-sm-6 col-lg-4 mt-4 text-center offset-lg-4 offset-sm-3">
+                <h4 id="text-machine_switch">Ecobrick machine is turned off!</h4>
+                <button type="button" class="btn btn-success" id="machine_switch">On</button>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mt-4 text-center offset-lg-4 offset-sm-3">
+            <h4 id="text-compressor_trigger">Compressor Trigger Interval (Seconds)</h4>
+            <div class="input-group">
+                    <input type="number" class="form-control" id="compressor_trigger">
+                    <div class="input-group-append">
+                      <button class="btn btn-success" type="button" id="compressor_trigger_button">Set</button>
+                    </div>
+            </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mt-4 text-center offset-lg-4 offset-sm-3">
+            <h4 id="text-bottle_size">Bottle Size (ml)</h4>
+            <div class="input-group">
+                    <input type="number" class="form-control" id="bottle_size">
+                    <div class="input-group-append">
+                      <button class="btn btn-success" type="button" id="bottle_size_button">Set</button>
+                    </div>
+                  </div>
+                </div>
+        </div>
     </div>
     </div>
 
 <script>
-$("#on-off").click(function(){
-    var x = $(this).text();
-    if (x=='On'){
-        $(this).removeClass(' btn-primary').addClass(' btn-danger').html('Off');
-        $('#text-on-off').html('Ecobrick machine is turned on!').addClass('animated pulse infinite');}
+$("#machine_switch").click(function(){
+    var x = $(this).val();
+    if (x==0){
+        $(this).removeClass(' btn-success').addClass(' btn-danger').html('Off');
+        $('#text-machine_switch').html('Ecobrick machine is turned on!').addClass('animated pulse infinite');
+        $('#machine_switch').attr("value", 1);
+        }
     else {
-        $(this).removeClass(' btn-danger').addClass(' btn-primary').html('On');
-        $('#text-on-off').html('Ecobrick machine is turned off!').removeClass('animated pulse infinite');}
+        $(this).removeClass(' btn-danger').addClass(' btn-success').html('On');
+        $('#text-machine_switch').html('Ecobrick machine is turned off!').removeClass('animated pulse infinite');
+        $('#machine_switch').attr("value", 0);
+        }
 });
+</script>
+
+<script>
+    $('#machine_switch').click(function(e){
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '{% url "update_settings" %}',
+        data: {
+            setting: "switch",
+            value: $('#machine_switch').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function (data) {
+            console.log(data.success);
+            if (data.value==1){
+                alert("Ecobrick machine is running!");
+            }
+            else{
+                alert("Ecobrick machine is turned off.");
+            }
+        }
+      });
+    });
+
+    $('#compressor_trigger_button').click(function(e){
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '{% url "update_settings" %}',
+        data: {
+            setting: "compressor_trigger",
+            value: $('#compressor_trigger').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function (data) {
+            console.log(data.success);
+            alert("Settings updated! compressing interval is set to " + data.value + " seconds.");
+        }
+      });
+    });
+
+    $('#bottle_size_button').click(function(e){
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '{% url "update_settings" %}',
+        data: {
+            setting: "bottle_size",
+            value: $('#bottle_size').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function (data) {
+            console.log(data.success);
+            alert("Settings updated! bottle size is set to " + data.value + " ml.");
+        }
+      });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        var s_name="";
+        var s_value="";
+        $.ajax({
+        type: 'GET',
+        url: '{% url "get_settings" %}',
+        success: function (data) {
+            for (var i=0; data.length>i; i++)
+            {
+                s_name=data[i]["setting_name"];
+                s_value=data[i]["value"];
+                $('#'+ s_name).val(s_value);
+                if (s_name=='machine_switch'){
+                    if (s_value==1){
+                        $('#machine_switch').removeClass(' btn-success').addClass(' btn-danger').html('Off');
+                        $('#text-machine_switch').html('Ecobrick machine is turned on!').addClass('animated pulse infinite');
+                    }
+                    else{
+                        $('#machine_switch').removeClass(' btn-danger').addClass(' btn-success').html('On');
+                        $('#text-machine_switch').html('Ecobrick machine is turned off!').removeClass('animated pulse infinite');
+                    }
+                }
+            }
+        }
+      });
+    });
+
 </script>
 
 {% endblock content %}
