@@ -43,12 +43,12 @@ while True:
         bs = None
 
     while ms.value==1:
-        print(seconds)
+        print(int(seconds))
         try:
             ms = Setting.objects.get(setting_name='machine_switch')
         except:
             ms = None
-        if seconds == ct.value:
+        if int(seconds) == ct.value:
             rl.setup(compressor,rl.LOW)
             time.sleep(2)
             rl.setup(compressor,rl.HIGH)
