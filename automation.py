@@ -67,5 +67,8 @@ while True:
         else:
             time.sleep(0.2)
             seconds = seconds + 0.2
+    if ms.value==0:
+        rl.setup(shredder,rl.HIGH) 
+        rl.setup(wiper,rl.HIGH)
 
 
