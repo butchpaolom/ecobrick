@@ -9,9 +9,9 @@ from eb.models import *
 
 #model is 'Setting'
 #automation for ecobrick is written here, from settings.
-compressor = 31 #pin 31 compressor
+compressor = 31 #pin 31 compressor (in4)
 wiper = 33      #pin 33 wiper
-shredder = 35   #pin 35 shredder
+shredder = 35   #pin 35 shredder 
 extra_pin = 37
 
 rl.setmode(rl.BOARD)
@@ -42,6 +42,8 @@ while True:
     except:
         bs = None
     while ms.value==1:
+        rl.setup(shredder,rl.LOW) #might put if statement if shredder is turned on
+        rl.setup(wiper,rl.LOW) #same to this one
         try:
             ms = Setting.objects.get(setting_name='machine_switch')
         except:
@@ -55,14 +57,15 @@ while True:
         except:
             bs = None
         print (ms)
-        print (ct)
+        print (ct + " (" + str(int(seconds))+ ")")
         print (bs)
-        if int(seconds) == ct.value:
+        if int(seconds) >= ct.value:
             rl.setup(compressor,rl.LOW)
             time.sleep(2)
             rl.setup(compressor,rl.HIGH)
             seconds = 0
         else:
+            time.sleep(0.2)
             seconds = seconds + 0.2
-        time.sleep(0.2)
+
 
