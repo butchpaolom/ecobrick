@@ -57,7 +57,7 @@ while True:
         except:
             bs = None
         print (ms)
-        print (ct + " (" + str(int(seconds))+ ")")
+        print (str(ct) + " (" + str(int(seconds))+ ")")
         print (bs)
         if int(seconds) >= ct.value:
             rl.setup(compressor,rl.LOW)
