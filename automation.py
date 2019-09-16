@@ -41,12 +41,14 @@ while True:
         bs = Setting.objects.get(setting_name='bottle_size')
     except:
         bs = None
+
     while ms.value==1:
+        print(seconds)
         try:
             ms = Setting.objects.get(setting_name='machine_switch')
         except:
             ms = None
-        if seconds == ct:
+        if seconds == ct.value:
             rl.setup(compressor,rl.LOW)
             time.sleep(2)
             rl.setup(compressor,rl.HIGH)
@@ -54,7 +56,7 @@ while True:
         else:
             seconds = seconds + 0.2
         time.sleep(0.2)
-        
-    print (ms)
-    print (ct)
-    print (bs)
+
+    # print (ms)
+    # print (ct)
+    # print (bs)
