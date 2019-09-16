@@ -27,8 +27,11 @@ rl.setup(extra_pin,rl.HIGH)
 
 seconds = 0
 
+ms=0
+ct=0
+bs=0
 
-while True:
+def update():
     try:
         ms = Setting.objects.get(setting_name='machine_switch')
     except:
@@ -41,13 +44,14 @@ while True:
         bs = Setting.objects.get(setting_name='bottle_size')
     except:
         bs = None
+    print (ms)
+    print (ct)
+    print (bs)
 
+while True:
+    update()
     while ms.value==1:
-        print(int(seconds))
-        try:
-            ms = Setting.objects.get(setting_name='machine_switch')
-        except:
-            ms = None
+        update()
         if int(seconds) == ct.value:
             rl.setup(compressor,rl.LOW)
             time.sleep(2)
@@ -57,6 +61,3 @@ while True:
             seconds = seconds + 0.2
         time.sleep(0.2)
 
-    # print (ms)
-    # print (ct)
-    # print (bs)
