@@ -9,41 +9,46 @@ from eb.models import *
 
 #model is 'Setting'
 #automation for ecobrick is written here, from settings.
+compressor = 31 #pin 31 compressor
+wiper = 33      #pin 33 wiper
+shredder = 35   #pin 35 shredder
+extra_pin = 37
+
 rl.setmode(rl.BOARD)
-rl.setup(33,rl.OUT)
-rl.setup(35,rl.OUT)
-rl.setup(37,rl.OUT)
-rl.setup(31,rl.OUT)
-rl.setup(33,rl.HIGH)
-rl.setup(35,rl.HIGH)
-rl.setup(37,rl.HIGH)
-rl.setup(31,rl.HIGH)
+rl.setup(compressor,rl.OUT)
+rl.setup(wiper,rl.OUT) 
+rl.setup(shredder,rl.OUT) 
+rl.setup(extra_pin,rl.OUT) 
+
+rl.setup(compressor,rl.HIGH)
+rl.setup(wiper,rl.HIGH)
+rl.setup(shredder,rl.HIGH)
+rl.setup(extra_pin,rl.HIGH)
+
+seconds = 0
 
 
-while (True):
+while True:
     try:
         ms = Setting.objects.get(setting_name='machine_switch')
     except:
         ms = None
     try:
-        ct = Setting.objects.get(setting_name='compressor_trigger')
+        ct = Setting.objects.get(setting_name='compressor_trigger') #time to trigger compressor in seconds
     except:
         ct = None
     try:
         bs = Setting.objects.get(setting_name='bottle_size')
     except:
         bs = None
-    if ms.value==1:
-        rl.setup(33,rl.LOW)
-        rl.setup(35,rl.LOW)
-        rl.setup(37,rl.LOW)
-        rl.setup(31,rl.LOW)
-    else:
-        rl.setup(33,rl.HIGH)
-        rl.setup(35,rl.HIGH)
-        rl.setup(37,rl.HIGH)
-        rl.setup(31,rl.HIGH)
+    while ms.value==1:
+        if seconds == ct:
+            rl.setup(compressor,rl.LOW)
+            time.sleep(2)
+            seconds = 0
+        else:
+            seconds = seconds + 0.2
+        time.sleep(0.2)
     print (ms)
     print (ct)
     print (bs)
-    time.sleep(.3)
