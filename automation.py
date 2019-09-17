@@ -61,7 +61,7 @@ while True:
         print (bs)
         if int(seconds) >= ct.value:
             rl.setup(compressor,rl.LOW)
-            time.sleep(2)
+            time.sleep(1)
             rl.setup(compressor,rl.HIGH)
             seconds = 0
         else:
