@@ -12,7 +12,7 @@ if not EMULATE_HX711:
 else:
     from emulated_hx711 import HX711
 
-hx = HX711(5, 6)
+hx = HX711(10, 9)
 hx.set_reading_format("MSB", "MSB")
 hx.set_reference_unit(referenceUnit)
 hx.reset()
