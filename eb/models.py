@@ -8,5 +8,10 @@ class Setting(models.Model):
     def __str__(self):
         return str(self.setting_name) + ' - value: ' + str(self.value)
 
+class Sensor(models.Model):
+    weight = models.IntegerField()
+
+    def __str__(self):
+        return "current weight: " + str(self.weight)
     
 # Create your models here.
