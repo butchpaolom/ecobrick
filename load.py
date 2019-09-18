@@ -2,12 +2,18 @@
 
 import time
 import sys
-
+import os
+import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ecobrick.settings")
 django.setup()
 
 from eb.models import *
-weight,created = Sensor.objects.get_or_create(weight=0)
+try:
+    weight = Sensor.objects.first()
+    weight.weight = 0
+    weight.save()
+except:
+    weight = Sensor.objects.create(weight=0)
 EMULATE_HX711=False
 
 referenceUnit = -115
@@ -27,7 +33,7 @@ def cleanAndExit():
     print("Bye!")
     sys.exit()
 
-hx = HX711(10, 9)
+hx = HX711(5, 6)
 hx.set_reading_format("MSB", "MSB")
 hx.set_reference_unit(referenceUnit)
 
