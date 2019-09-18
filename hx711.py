@@ -20,6 +20,20 @@ class HX711:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.PD_SCK, GPIO.OUT)
         GPIO.setup(self.DOUT, GPIO.IN)
+        compressor = 31 #pin 31 compressor (in4)
+        wiper = 33      #pin 33 wiper
+        shredder = 35   #pin 35 shredder 
+        extra_pin = 37
+
+        GPIO.setup(compressor,GPIO.OUT)
+        GPIO.setup(wiper,GPIO.OUT) 
+        GPIO.setup(shredder,GPIO.OUT) 
+        GPIO.setup(extra_pin,GPIO.OUT) 
+
+        GPIO.setup(compressor,GPIO.HIGH)
+        GPIO.setup(wiper,GPIO.HIGH)
+        GPIO.setup(shredder,GPIO.HIGH)
+        GPIO.setup(extra_pin,GPIO.HIGH)
 
         self.GAIN = 0
 
