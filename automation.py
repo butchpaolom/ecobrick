@@ -30,8 +30,9 @@ seconds = 0
 
 while True:
     try:
+        print(ms)
+        time.sleep(0.3)
         weight = Sensor.objects.first()
-        print(weight)
         try:
             ms = Setting.objects.get(setting_name='machine_switch')
         except:
@@ -44,7 +45,6 @@ while True:
             bs = Setting.objects.get(setting_name='bottle_size')
         except:
             bs = None
-        print (ms.value)
         while ms.value==1 and bs.value*(0.33) > weight.weight:
             weight = Sensor.objects.first()
             rl.setup(shredder,rl.LOW) #might put if statement if shredder is turned on
@@ -72,11 +72,15 @@ while True:
             else:
                 time.sleep(0.2)
                 seconds = seconds + 0.2
-        if ms.value==0 or bs.value*(0.33) < weight.weight:
+        if ms.value==1 and bs.value*(0.33) < weight.weight:
             rl.setup(shredder,rl.HIGH) 
             rl.setup(wiper,rl.HIGH)
+            time.sleep(5)
             ms.value = 0
             ms.save()
+        if ms.value==0:
+            rl.setup(shredder,rl.HIGH) 
+            rl.setup(wiper,rl.HIGH)
     except (KeyboardInterrupt, SystemExit):
         rl.cleanup()
         print("GPIO CLEANED")

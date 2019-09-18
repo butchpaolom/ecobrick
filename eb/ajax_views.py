@@ -12,6 +12,7 @@ def update_settings(request):
                 machine_switch = Setting.objects.get(setting_name='machine_switch')
                 machine_switch.value = value 
                 machine_switch.save()
+                print(machine_switch.value)
             elif setting == 'compressor_trigger':
                 compressor_trigger = Setting.objects.get(setting_name='compressor_trigger')
                 compressor_trigger.value = value 
